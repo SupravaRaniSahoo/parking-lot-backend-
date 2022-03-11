@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,10 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.parking.pls.dto.LoginDTO;
 import com.parking.pls.entity.Login;
+import com.parking.pls.entity.Vehicle;
 import com.parking.pls.repository.LoginRepository;
+import com.parking.pls.repository.VehicleRepository;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin
+//(origins = "http://localhost:4200")
 public class HelloResource {
 	
 	@Autowired
@@ -32,6 +36,9 @@ public class HelloResource {
 	
 	@Autowired
 	private MyUserDetailsService userDetailsService;
+	
+	@Autowired
+	private VehicleRepository vehicleRepository;
 	
 //	@Autowired
 //	private PasswordEncoder bcryptEncoder;
@@ -49,6 +56,11 @@ public class HelloResource {
 		return "Info is fully up and running..";
 	}
 	
+	@RequestMapping(value="/getSomeVehicle", method=RequestMethod.GET)
+	public List<Vehicle> getSomeBikeDetails(){
+		return (List<Vehicle>) vehicleRepository.findAll();
+	}
+	
 	@RequestMapping(value="/getUser", method=RequestMethod.GET)
 	public List<Login> getLoginDetails(){
 		return (List<Login>) loginRepository.findAll();
@@ -59,7 +71,8 @@ public class HelloResource {
 
 		try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
-        }catch (BadCredentialsException e){
+        }
+		catch (BadCredentialsException e){
         	e.printStackTrace();
             throw new Exception("Incorrect Username or password...", e);
         }

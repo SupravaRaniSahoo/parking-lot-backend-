@@ -31,7 +31,7 @@ import com.parking.pls.repository.VehicleRepository;
 //import com.parking.pls.service.VehicleService;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RequestMapping(value="/parkingAPI")
 public class VehicleAPI {
 
@@ -41,10 +41,10 @@ public class VehicleAPI {
 	@Autowired
 	private DetailsRepository detailsRepository;
 	
-	@GetMapping(value="/getSomeVehicle")
-	public List<Vehicle> getSomeBikeDetails(){
-		return (List<Vehicle>) vehicleRepository.findAll();
-	}
+//	@GetMapping(value="/getSomeVehicle")
+//	public List<Vehicle> getSomeBikeDetails(){
+//		return (List<Vehicle>) vehicleRepository.findAll();
+//	}
 	
 	@PostMapping(value="/addSomeVehicle")
 	public Vehicle addSomeBikeDetails(@RequestBody VehicleDTO vehicleDTO){

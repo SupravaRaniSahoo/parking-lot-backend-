@@ -15,7 +15,7 @@ import com.parking.pls.repository.RoleRepository;
 
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RequestMapping(value="/login")
 public class LoginRoleAPI {
 	

@@ -26,7 +26,7 @@ import com.parking.pls.repository.DetailsRepository;
 import com.parking.pls.repository.VehicleRepository;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RequestMapping(value="/detailsAPI")
 public class DetailsAPI {
 	
